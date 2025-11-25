@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 
 int binary_adder(std::string user) {
     int binary_schedule{};
@@ -43,6 +44,10 @@ std::vector<int> days() {
         final.push_back(x);
     }
 
+    
+}
+
+void add_to_text(std::string filename, std::string user, std::vector<int> schedule) {
     
 }
 
