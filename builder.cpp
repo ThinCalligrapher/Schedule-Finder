@@ -45,7 +45,7 @@ class User {
             }
         }
 
-        void setBitSchedule() {
+        void setBitSchedule() { // resally only useful to find exact all matches in a large scale
             std::cout << "Enter schedule for user " << userName << std::endl;
             std::cout << "Enter 1 for open 0 for closed" << std::endl; 
             for(int i = 0; i < s; i++) {
@@ -69,6 +69,21 @@ int compareBitSchedules(int scheduleLength, int quant, User* usersArr) {
     return running;
 }
 
+void graphSchedules(int quant, User* usersArr) {
+    std::cout << "8     9    10   11   12    " << std::endl;
+    for(int i = 0; i < quant; i++) {
+        for(int j = 0; j < 5; j++) {
+            if(usersArr[i].bitSchedule & (1 << j)) {
+                std::cout << "####|";
+            }
+            else {
+                std::cout << "    |";
+            }
+        }
+        std::cout << "\n";   
+    }
+}
+
 
 int main() {
     std::unordered_map<int, std::vector<std::string>> matches;
@@ -84,7 +99,7 @@ int main() {
     }
 
     for(int i = 0; i < quant; i++) {
-        users[i].print();
+        // users[i].print(); // this is now broken -> fix with bitSchedule
     }
 
     for(int i = 0; i < quant; i++) {
@@ -105,13 +120,15 @@ int main() {
     }
 
     std::cout << "\n";
-}
+    }
 
     int scheduleMatch{};
 
     scheduleMatch = compareBitSchedules(5, quant, users);
 
     std::cout << "This is a test " << scheduleMatch << std::endl;
+
+    graphSchedules(5, users);
 
     delete[] users;
 
@@ -123,6 +140,13 @@ int main() {
     // but the integers would be powerful for finding overlap between a million
     // it would be O(n) time? n operations to find the times that all people are open
     // can be extended to a million people, and much longer too
+
+    // graphical representation?
+    // use bitshifting!!
+    // use the and loop, and if you get the and at that point you add ####
+    // like this
+    //  8   9   10  11  12 if(users[i].bitSchedule & (1 << i))
+    //  ####        ########
 
 
 
