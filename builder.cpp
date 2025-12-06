@@ -3,7 +3,15 @@
 #include <iostream>
 #include <unordered_map> // for finding matches and putting them in the hash map
 
+// ok so I am now seeing that a hash map pretty much does everything for me already here, I just add the name to a hash map at schedule build
+// then I will automatically see who is overlapping where... but I do build the hash map not when building the schedule
+// but by bit shifting the schedule integer, which does take time
+// not that much but each operation does take time
+// and then I am in users * schedule + constant time
 
+
+// I really do need to look into that iterating code, it shows references and how powerful auto is!
+// especially for iterators
 
 class User {
     public:
@@ -63,6 +71,7 @@ int compareBitSchedules(int scheduleLength, int quant, User* usersArr) {
 
 
 int main() {
+    std::unordered_map<int, std::vector<std::string>> matches;
     std::cout << "Enter number of users: ";
     int quant;
     std::cin >> quant;
@@ -78,6 +87,26 @@ int main() {
         users[i].print();
     }
 
+    for(int i = 0; i < quant; i++) {
+        for(int j = 0; j < 5; j++) {
+            if(users[i].bitSchedule & (1 << j)) {
+                matches[j].push_back(users[i].userName);
+            }
+        }
+    }
+
+
+    for (const auto& pair : matches) { // so this uses an iterator to iterate through the map
+    std::cout << "Key: " << pair.first << "\n";
+
+    const auto& vec = pair.second; // in looping through the keys, we get to the vector, which we make a refernece for
+    for (const auto& val : vec) { // now looping through the vector 
+        std::cout << "  " << val << "\n";
+    }
+
+    std::cout << "\n";
+}
+
     int scheduleMatch{};
 
     scheduleMatch = compareBitSchedules(5, quant, users);
@@ -87,6 +116,13 @@ int main() {
     delete[] users;
 
     return 0;
+
+
+    // the hash map is powerful for finding overlap between people
+
+    // but the integers would be powerful for finding overlap between a million
+    // it would be O(n) time? n operations to find the times that all people are open
+    // can be extended to a million people, and much longer too
 
 
 
