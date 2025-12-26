@@ -79,6 +79,9 @@ void graphSchedules(int quant, User* usersArr) {
             else {
                 std::cout << "    |";
             }
+            if(j == 4) {
+                std::cout << " " <<usersArr[i].userName;
+            }
         }
         std::cout << "\n";   
     }
@@ -128,7 +131,7 @@ int main() {
 
     std::cout << "This is a test " << scheduleMatch << std::endl;
 
-    graphSchedules(5, users);
+    graphSchedules(quant, users);
 
     delete[] users;
 
