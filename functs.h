@@ -10,38 +10,33 @@
 class User {
     public:
         std::string userName;
-        static const int s {5};
-        int schedule[s];
         int bitSchedule{};
-        User() {};
+        int s = 5;
+        User() = default;
+        void setName();
 
-        void setName() {
-        }
 
-        void print() {
-        }
 
-        void setBitSchedule() { 
-        }
+        void setBitSchedule();
 };
 
-int compareBitSchedules(int scheduleLength, int quant, User* usersArr) {
-}
 
-void graphSchedules(int quant, User* usersArr) {
-}
+int compareBitSchedules(int scheduleLength, int quant, const std::vector<User>& usersArr);
 
+void graphSchedules(int quant, const std::vector<User>& usersArr);
 
 
-void defineUsers(int quant, User* users) {
-}
+int getQuant();
 
-int initializeUsers() {
-}
+void defineUsers(int quant, std::vector<User>& users);
+
+std::vector<User> initializeUsers(int quant);
 
 
-void buildMap (int quant, User* users, std::unordered_map<int, std::vector<std::string>> matches) {
-}
+void buildMap (int quant, const std::vector<User>& users, std::unordered_map<int, std::vector<std::string>>& matches);
+
+std::unordered_map<int, std::vector<std::string>> makeMatches(int quant);
+
 
 
 

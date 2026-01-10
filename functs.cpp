@@ -7,6 +7,8 @@
 
 
 
+
+
 void User::setName() {
     std::cout << "Enter new user name: ";
     std::string name;
@@ -14,18 +16,13 @@ void User::setName() {
     userName = name;
 }
 
-void User::print() {
-    std::cout << "Schedule for user " << userName << std::endl;
-    for (int i = 0; i < 5; i++) {
-        std::cout << schedule[i] << std::endl;
-    }
-}
+
 
 void User::setBitSchedule() { // resally only useful to find exact all matches in a large scale
     std::cout << "Enter schedule for user " << userName << std::endl;
     std::cout << "Enter 1 for open 0 for closed" << std::endl; 
     for(int i = 0; i < s; i++) {
-        std::cout << "Is user open from " << i + 8 << " to " << i + 9 << "?  (1/0): ";
+        std::cout << "Is " << userName << " open from " << i + 8 << " to " << i + 9 << "?  (1/0): ";
         int x{};
         std::cin >> x;
         if(x > 0) {
@@ -34,7 +31,7 @@ void User::setBitSchedule() { // resally only useful to find exact all matches i
     }
 }
 
-int compareBitSchedules(int scheduleLength, int quant, User* usersArr) {
+int compareBitSchedules(int scheduleLength, int quant, const std::vector<User>& usersArr) {
     int running {0b11111};
     for(int i = 0; i < quant - 1; i++) {
         int match = usersArr[i].bitSchedule & usersArr[i + 1].bitSchedule;
@@ -43,7 +40,7 @@ int compareBitSchedules(int scheduleLength, int quant, User* usersArr) {
     return running;
 }
 
-void graphSchedules(int quant, User* usersArr) {
+void graphSchedules(int quant, const std::vector<User>& usersArr) {
     std::cout << "8     9    10   11   12    " << std::endl;
     for(int i = 0; i < quant; i++) {
         for(int j = 0; j < 5; j++) {
@@ -62,28 +59,38 @@ void graphSchedules(int quant, User* usersArr) {
 }
 
 
+int getQuant() {
+    std::cout << "Enter number of new users: ";
+    int quant;
+    std::cin >> quant;
+    return quant;
+}
 
-void defineUsers(int quant, User* users) {
+void defineUsers(int quant, std::vector<User>& users) {
     for(int i = 0; i < quant; i++) { // for quant
         users[i].setName(); // call setname on the users array objects
         users[i].setBitSchedule(); // run set bit schedule on all users
     } 
 }
 
-int initializeUsers() {
-    // std::unordered_map<int, std::vector<std::string>> matches; // make an unordered map of int, vector of strings called matches
-    std::cout << "Enter number of users: ";
-    int quant; // at beginning enter the number of users and save it as quant
-    std::cin >> quant;
+std::vector<User> initializeUsers(int quant) {
+    std::vector<User> users;
+    users.reserve(quant);
+    for(int i = 0; i < quant; i++) {
+        users.emplace_back();
+    }
 
-    User* users = new User[quant]; // a pointer, sized to the User class, with quant amount
-
-    return quant;
+    return users;
     // I am returning quant, because it is used later in the program. This number will need to be saved in the json!!!!
 }
 
+std::unordered_map<int, std::vector<std::string>> makeMatches(int quant) {
+    std::unordered_map<int, std::vector<std::string>> matches;
+    return matches;
+}
 
-void buildMap (int quant, User* users, std::unordered_map<int, std::vector<std::string>> matches) {
+
+void buildMap (int quant, const std::vector<User>& users, std::unordered_map<int, std::vector<std::string>>& matches) {
         for(int i = 0; i < quant; i++) { // top level quant of users times
         for(int j = 0; j < 5; j++) { // double nested loop - 5 is the amount of schedule entries
             if(users[i].bitSchedule & (1 << j)) { // bitwise comparison
