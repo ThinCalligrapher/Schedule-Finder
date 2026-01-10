@@ -53,7 +53,7 @@ class User {
                 int x{};
                 std::cin >> x;
                 if(x > 0) {
-                    bitSchedule += (1 << i);
+                    bitSchedule += (1 << i); // uses bit shifting to make a binary number 10101010 or whatever of the schedule
                 }
             }
         }
@@ -66,22 +66,22 @@ int compareBitSchedules(int scheduleLength, int quant, User* usersArr) {
         int match = usersArr[i].bitSchedule & usersArr[i + 1].bitSchedule;
         running = match & running;
     }
-    return running;
+    return running; // crazy enough this will return when all people are matched - can use to display via text when all are open
 }
 
 void graphSchedules(int quant, User* usersArr) {
     std::cout << "8     9    10   11   12    " << std::endl;
-    for(int i = 0; i < quant; i++) {
-        for(int j = 0; j < 5; j++) {
-            if(usersArr[i].bitSchedule & (1 << j)) {
-                std::cout << "####|";
+    for(int i = 0; i < quant; i++) { // top level for users
+        for(int j = 0; j < 5; j++) { // for times in schedule
+            if(usersArr[i].bitSchedule & (1 << j)) { // if user is open at time j
+                std::cout << "####|"; // print the blocks
             }
             else {
-                std::cout << "    |";
+                std::cout << "    |"; // else print an empty block
             }
             if(j == 4) {
                 std::cout << " " <<usersArr[i].userName;
-            }
+            } // this runs at the end no matter what and gives us the nice formatting. can go at beginning but I like this more
         }
         std::cout << "\n";   
     }
@@ -89,47 +89,47 @@ void graphSchedules(int quant, User* usersArr) {
 
 
 int main() {
-    std::unordered_map<int, std::vector<std::string>> matches;
+    std::unordered_map<int, std::vector<std::string>> matches; // make an unordered map of int, vector of strings called matches
     std::cout << "Enter number of users: ";
-    int quant;
+    int quant; // at beginning enter the number of users and save it as quant
     std::cin >> quant;
 
     User* users = new User[quant]; // a pointer, sized to the User class, with quant amount
 
-    for(int i = 0; i < quant; i++) {
-        users[i].setName();
-        users[i].setBitSchedule();
-    }
+    for(int i = 0; i < quant; i++) { // for quant
+        users[i].setName(); // call setname on the users array objects
+        users[i].setBitSchedule(); // run set bit schedule on all users
+    } // make this into a function that runs on startup, then asks for each user if update
 
     for(int i = 0; i < quant; i++) {
         // users[i].print(); // this is now broken -> fix with bitSchedule
     }
 
-    for(int i = 0; i < quant; i++) {
-        for(int j = 0; j < 5; j++) {
-            if(users[i].bitSchedule & (1 << j)) {
-                matches[j].push_back(users[i].userName);
+    for(int i = 0; i < quant; i++) { // top level quant of users times
+        for(int j = 0; j < 5; j++) { // double nested loop - 5 is the amount of schedule entries
+            if(users[i].bitSchedule & (1 << j)) { // bitwise comparison
+                matches[j].push_back(users[i].userName); // add to the unordered map at key j(time) the name of the user
             }
         }
-    }
+    } // make this into a function
 
 
-    for (const auto& pair : matches) { // so this uses an iterator to iterate through the map
-    std::cout << "Key: " << pair.first << "\n";
+    for (const auto& pair : matches) { // so this uses an iterator to iterate through the map, but unordered? - actually fine
+    std::cout << "Key: " << pair.first << "\n"; // this is completely unnecessary, just for debugging and will only show schedule matches
 
     const auto& vec = pair.second; // in looping through the keys, we get to the vector, which we make a refernece for
     for (const auto& val : vec) { // now looping through the vector 
         std::cout << "  " << val << "\n";
-    }
+    } // agian this is only for debugging
 
     std::cout << "\n";
-    }
+    } // formatting
 
     int scheduleMatch{};
 
-    scheduleMatch = compareBitSchedules(5, quant, users);
+    scheduleMatch = compareBitSchedules(5, quant, users); // finds when all are open
 
-    std::cout << "This is a test " << scheduleMatch << std::endl;
+    std::cout << "This is a test " << scheduleMatch << std::endl; // when all are open
 
     graphSchedules(quant, users);
 
@@ -150,6 +150,11 @@ int main() {
     // like this
     //  8   9   10  11  12 if(users[i].bitSchedule & (1 << i))
     //  ####        ########
+
+
+    // O(n*times) so decays to O(n) to make the graph?
+
+    
 
 
 
