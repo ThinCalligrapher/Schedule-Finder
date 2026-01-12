@@ -1,4 +1,5 @@
 #include "functs.h"
+#include "menu.h"
 #include <string>
 #include <unordered_map>
 #include <iostream>
@@ -19,6 +20,8 @@ int main() {
     
 
     graphSchedules(quant, users);
+
+    filePopulate("users.txt", users);
 
 
     return 0;
