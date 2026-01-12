@@ -7,7 +7,10 @@
 
 
 
-
+User::User(int newSchedule, std::string newName) {
+    userName = newName;
+    bitSchedule = newSchedule;
+}
 
 void User::setName() {
     std::cout << "Enter new user name: ";

@@ -13,6 +13,7 @@ class User {
         int bitSchedule{};
         int s = 5;
         User() = default;
+        User(int newSchedule, std::string newName);
         void setName();
 
 
