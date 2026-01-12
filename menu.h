@@ -11,5 +11,6 @@ int fileInitialize(std::string fileName, std::vector<User>& usersArr);
 
 void filePopulate(std::string fileName, const std::vector<User>& usersArr);
 
+int welcomeScreen();
 
 #endif

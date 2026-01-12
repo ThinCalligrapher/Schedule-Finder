@@ -55,3 +55,18 @@ void filePopulate(std::string fileName, const std::vector<User>& usersArr) {
     }
 }
 
+int welcomeScreen() {
+    std::cout << "####################" << "\n\n";
+    std::cout << "Welcome to Schedule Builder\n";
+    std::cout << "Please enter your choice\n\n";
+
+    std::cout << "1: See current schedules\n";
+    std::cout << "2: Make new schedules\n";
+    std::cout << "3: Remove user\n";
+    std::cout << "4: Add user\n";
+
+    int choice{};
+    std::cin >> choice;
+    return choice;
+}
+

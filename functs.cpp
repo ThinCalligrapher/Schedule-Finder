@@ -70,21 +70,16 @@ int getQuant() {
 }
 
 void defineUsers(int quant, std::vector<User>& users) {
-    for(int i = 0; i < quant; i++) { // for quant
+    for(int i = ; i < quant; i++) { // for quant
         users[i].setName(); // call setname on the users array objects
         users[i].setBitSchedule(); // run set bit schedule on all users
     } 
 }
 
-std::vector<User> initializeUsers(int quant) {
-    std::vector<User> users;
-    users.reserve(quant);
+void initializeUsers(int quant, std::vector<User>& users) {
     for(int i = 0; i < quant; i++) {
         users.emplace_back();
     }
-
-    return users;
-    // I am returning quant, because it is used later in the program. This number will need to be saved in the json!!!!
 }
 
 std::unordered_map<int, std::vector<std::string>> makeMatches(int quant) {
