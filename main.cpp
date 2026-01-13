@@ -8,9 +8,7 @@
 
 
 void addUsers(std::vector<User>& users) {
-    int quant {};
-    std::cout << "\n" << "How many users to add: ";
-    std::cin >> quant;
+    int quant = getQuant();
     for (int i = 0; i < quant; i++) {
          // I was in the middle of adding the ability
         // to add users to the existing vector
