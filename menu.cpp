@@ -32,13 +32,9 @@ int fileInitialize(std::string fileName, std::vector<User>& usersArr) {
         if (!line.empty()) {
             if (line[0] == '/') {
                 name = line.substr(1);
-                std::cout << "name test" << name << "\n";
             }
             else {
-            std::cout << "If you see this something is broken\n";
-            std::cout << "line " << line << "::\n";
             sched = stoi(line);
-            std::cout << "number test " << sched << "\n";
             usersArr.emplace_back(sched, name);
             }
         }
@@ -74,7 +70,28 @@ int welcomeScreen() {
     std::cout << "4: Exit\n";
 
     int choice{};
+    std::cout << "Enter menu number option:  ";
     std::cin >> choice;
+    std::cout << "****************\n";
     return choice;
+}
+
+
+void deleteUser(std::string delUser, std::vector<User>& users) {
+    // for (auto it = users.begin(); it != users.end();) {
+    //     if ((*it).userName == delUser) {
+    //         it = users.erase(it);
+    //         break;
+    //     }
+    //     else {
+    //         it++;
+    //     }
+    for(int i = 0; i < users.size(); i++) {
+        if (users.at(i).userName == delUser) {
+            users[i] = users.back();
+            users.pop_back();
+            break;
+        }
+    }
 }
 

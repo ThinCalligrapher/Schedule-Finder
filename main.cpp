@@ -50,7 +50,11 @@ int main() {
             std::cout << "\n";
         }
         else if (choice == 3) {
-            std::cout << "Feature coming soon\n";
+            std::cout << "Enter exact username you want to delete: ";
+            std::string toDel{};
+            std::cin >> toDel;
+            deleteUser(toDel, users);
+            std::cout << "\n";
         }
         else {
             continue;
