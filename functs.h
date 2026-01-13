@@ -29,9 +29,6 @@ void graphSchedules(int quant, const std::vector<User>& usersArr);
 
 int getQuant();
 
-void defineUsers(int quant, std::vector<User>& users);
-
-void initializeUsers(int quant, std::vector<User>& users);
 
 
 void buildMap (int quant, const std::vector<User>& users, std::unordered_map<int, std::vector<std::string>>& matches);

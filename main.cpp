@@ -4,39 +4,59 @@
 #include <unordered_map>
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 
 void addUsers(std::vector<User>& users) {
-    int quant = getQuant();
+    int quant {};
+    std::cout << "\n" << "How many users to add: ";
+    std::cin >> quant;
     for (int i = 0; i < quant; i++) {
-        std::string name{};
-        int schedule // I was in the middle of adding the ability
+         // I was in the middle of adding the ability
         // to add users to the existing vector
         // this would require a major rewrite!!
+        users.emplace_back();
+        users.back().setName();
+        users.back().setBitSchedule();
+       
     }
+    filePopulate("users.txt", users);
 
 }
 
 int main() {
 
+    std::cout << "####################" << "\n\n";
+    std::cout << "Welcome to Schedule Builder\n";
+    std::cout << "Please enter your choice\n\n";
+
     std::vector<User> users;
-    int howMany = fileInitialize("users.txt", users);
-
-
-    int choice  = welcomeScreen();
-    int quant = getQuant();
-
-    initializeUsers(quant, users);
-
-    defineUsers(quant, users);
-
-    std::unordered_map<int, std::vector<std::string>> matches = makeMatches(quant);
-
-    buildMap(quant, users, matches);
-
+    int quant = fileInitialize("users.txt", users);
+    std::cout << "How many: " << quant << "\n";
     
 
-    graphSchedules(quant, users);
+
+    int choice {};
+
+    while(choice != 4) {
+        choice = welcomeScreen();
+        if (choice == 1) {
+
+            graphSchedules(users.size(), users);
+            std::cout << "\n";
+        }
+        else if (choice == 2) {
+            addUsers(users);
+            std::cout << "\n";
+        }
+        else if (choice == 3) {
+            std::cout << "Feature coming soon\n";
+        }
+        else {
+            continue;
+            std::cout << "\n";
+        }
+    }
 
     filePopulate("users.txt", users);
 

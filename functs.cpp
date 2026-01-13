@@ -47,14 +47,14 @@ void graphSchedules(int quant, const std::vector<User>& usersArr) {
     std::cout << "8     9    10   11   12    " << std::endl;
     for(int i = 0; i < quant; i++) {
         for(int j = 0; j < 5; j++) {
-            if(usersArr[i].bitSchedule & (1 << j)) {
+            if(usersArr.at(i).bitSchedule & (1 << j)) {
                 std::cout << "####|";
             }
             else {
                 std::cout << "    |";
             }
             if(j == 4) {
-                std::cout << " " <<usersArr[i].userName;
+                std::cout << " " <<usersArr.at(i).userName;
             }
         }
         std::cout << "\n";   
@@ -67,19 +67,6 @@ int getQuant() {
     int quant;
     std::cin >> quant;
     return quant;
-}
-
-void defineUsers(int quant, std::vector<User>& users) {
-    for(int i = ; i < quant; i++) { // for quant
-        users[i].setName(); // call setname on the users array objects
-        users[i].setBitSchedule(); // run set bit schedule on all users
-    } 
-}
-
-void initializeUsers(int quant, std::vector<User>& users) {
-    for(int i = 0; i < quant; i++) {
-        users.emplace_back();
-    }
 }
 
 std::unordered_map<int, std::vector<std::string>> makeMatches(int quant) {

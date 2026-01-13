@@ -6,7 +6,7 @@
 #include "functs.h"
 
 int fileInitialize(std::string fileName, std::vector<User>& usersArr) {
-    std::fstream file(fileName);
+    std::ifstream file(fileName);
 
     int userCount{};
     int debug{};
@@ -15,26 +15,35 @@ int fileInitialize(std::string fileName, std::vector<User>& usersArr) {
     std::string name{};
 
 
-    try {
-        file >> line;
-        userCount = stoi(line);
+    if (!file.is_open()) {
+        std::cout << "Could not open file\n";
+        return 0;
     }
-    catch(...) {
-        std::cout << "File empty" << std::endl;
-        file << 0;
+    
+    if (!(file >> userCount)) {
+        std::cout << "Invalid file format\n";
         return 0;
     }
 
+    std::getline(file, line);
+
+
     while(std::getline(file, line)) {
-        if (line.length() > 0) {
-            if (line.at(0) == '/') {
+        if (!line.empty()) {
+            if (line[0] == '/') {
                 name = line.substr(1);
+                std::cout << "name test" << name << "\n";
             }
-        else {
+            else {
+            std::cout << "If you see this something is broken\n";
+            std::cout << "line " << line << "::\n";
             sched = stoi(line);
+            std::cout << "number test " << sched << "\n";
             usersArr.emplace_back(sched, name);
+            }
         }
-        }
+ 
+
     }
     file.close();
     return userCount;
@@ -51,19 +60,18 @@ void filePopulate(std::string fileName, const std::vector<User>& usersArr) {
     out << userCount << "\n" << "\n";
 
     for (auto it : usersArr) {
-        out << it.userName << "\n" << it.bitSchedule << "\n" << "\n";
+        out << "/" << it.userName << "\n" << it.bitSchedule << "\n" << "\n";
     }
+    out.close();
 }
 
 int welcomeScreen() {
-    std::cout << "####################" << "\n\n";
-    std::cout << "Welcome to Schedule Builder\n";
-    std::cout << "Please enter your choice\n\n";
 
+    std::cout << "\n" << "----------------------------" << "\n";
     std::cout << "1: See current schedules\n";
-    std::cout << "2: Make new schedules\n";
+    std::cout << "2: Add new schedules\n";
     std::cout << "3: Remove user\n";
-    std::cout << "4: Add user\n";
+    std::cout << "4: Exit\n";
 
     int choice{};
     std::cin >> choice;
