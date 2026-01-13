@@ -71,16 +71,10 @@ int welcomeScreen() {
 
     int choice{};
     std::cout << "Enter menu number option:  ";
-    while (true) {
-        try {
-            std::cin >> choice;
-        }
-        catch(...) {
-            std::cout << "Enter valid number\n";
-            continue;
-        }
-        break;
-
+    while (!(std::cin >> choice)) {
+        std::cout << "Enter valid number\n";
+        std::cin.clear();
+        std::cin.ignore(1000, '\n');
     }
     std::cout << "****************\n";
     return choice;

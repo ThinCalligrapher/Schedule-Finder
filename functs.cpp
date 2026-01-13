@@ -27,12 +27,10 @@ void User::setBitSchedule() { // resally only useful to find exact all matches i
     for(int i = 0; i < s; i++) {
         std::cout << "Is " << userName << " open from " << i + 8 << " to " << i + 9 << "?  (1/0): ";
         int x{};
-        try {
-            std::cin >> x;
-        }
-        catch(...) {
-            std::cout << "Invalid entry - 0 entered\n";
-            x = 0;
+        while(!(std::cin >> x)) {
+            std::cout << "Invalid entry - try again\n";
+            std::cin.clear();
+            std::cin.ignore(1000, '\n');
         }
         if(x != 0) {
             bitSchedule += (1 << i);
@@ -70,17 +68,14 @@ void graphSchedules(int quant, const std::vector<User>& usersArr) {
 
 int getQuant() {
     std::cout << "Enter number of new users: ";
-    while (true) {
-        int quant{};
-        try {
-            std::cin >> quant;
-        }
-        catch(...) {
-            std::cout << "Enter valid number\n";
-            continue;
-        }
-        return quant;
+    int quant{};
+    while (!(std::cin >> quant) || quant <= 0) {
+        std::cout << "Enter valid number";
+        std::cin.clear();
+        std::cin.ignore(10000, '\n');
+        
     }
+    return quant;
 }
 
 std::unordered_map<int, std::vector<std::string>> makeMatches(int quant) {
