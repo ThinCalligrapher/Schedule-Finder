@@ -36,7 +36,7 @@ int main() {
 
     int choice {};
 
-    while(choice != 4) {
+    while(choice != 5) {
         choice = welcomeScreen();
         if (choice == 1) {
 
@@ -52,6 +52,21 @@ int main() {
             std::string toDel{};
             std::cin >> toDel;
             deleteUser(toDel, users);
+            std::cout << "\n";
+        }
+        else if (choice == 4) {
+            std::cout << "All users open at:\n";
+            std::cout << "8     9    10   11   12    \n";
+            int k = users.size();
+            int tot = compareBitSchedules(5, k, users);
+            for (int i = 0; i < 5; i++) {
+                if (tot & (1 << i)) {
+                    std::cout << "####|";
+                }
+                else {
+                    std::cout << "    |";
+                }
+            }
             std::cout << "\n";
         }
         else {

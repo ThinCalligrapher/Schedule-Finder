@@ -69,11 +69,10 @@ void graphSchedules(int quant, const std::vector<User>& usersArr) {
 int getQuant() {
     std::cout << "Enter number of new users: ";
     int quant{};
-    while (!(std::cin >> quant) || quant <= 0) {
+    while (!(std::cin >> quant) || quant <= 0) { // if its true, this will pas
         std::cout << "Enter valid number";
         std::cin.clear();
         std::cin.ignore(10000, '\n');
-        
     }
     return quant;
 }

@@ -67,7 +67,8 @@ int welcomeScreen() {
     std::cout << "1: See current schedules\n";
     std::cout << "2: Add new schedules\n";
     std::cout << "3: Remove user\n";
-    std::cout << "4: Exit\n";
+    std::cout << "4: Find overlap\n";
+    std::cout << "5: Exit\n";
 
     int choice{};
     std::cout << "Enter menu number option:  ";
@@ -90,7 +91,7 @@ void deleteUser(std::string delUser, std::vector<User>& users) {
     //     else {
     //         it++;
     //     }
-    for(int i = 0; i < users.size(); i++) {
+    for (int i = 0; i < users.size(); i++) {
         if (users.at(i).userName == delUser) {
             users[i] = users.back();
             users.pop_back();
